@@ -30,10 +30,11 @@ void SourceStream::readWord()
 	c = input.get();
 	std::string pos = std::to_string((int)input.tellg());
 	if (c != EOF) {
+		char next;
 		switch (c)
 		{
 		case '/':
-			char next = input.peek();
+			next = input.peek();
 			if (skipComment(next)) {
 				break;
 			}
@@ -50,7 +51,12 @@ void SourceStream::readWord()
 			}
 			errors.push_back("Ошибка: отсутсвует парная ковычка символа" + pos);
 		default:
-			break;
+			buffer.push_back(c);
+			for(c = input.peek(); c != EOF and !isspace(c); c = input.peek())
+			{
+				buffer.push_back(input.get());
+			}
+			return;
 		}
 	}
 }
