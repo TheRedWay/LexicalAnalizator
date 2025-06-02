@@ -1,9 +1,11 @@
 #pragma once
 #include <string>
-class Lexer
+#include "Token.h"
+#include "SourceStream.h"
+class Lexer : protected SourceStream
 {
 
-	std::string readWord();
-	std::string readExpr();
+	
+	
 };
 

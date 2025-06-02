@@ -21,7 +21,7 @@ enum separetor_type : char {
 
 class KeywordToken : public Token
 {
-
+    std::string value;
 };
 
 class SeparetorToken : public Token
@@ -29,13 +29,14 @@ class SeparetorToken : public Token
     separetor_type separetor;
 };
 
+class SymbolTable;
 enum indType : char {_bool, _char, _wchar, _short, _int, _float, _double, _long};
 class IdentifierToken : public Token
 {
     std::string name;
     indType type;
     double value;
-    static SymbolTable* symbolTable;
+    static SymbolTable symbolTable;
 };
 
 class OperationToken : public Token
@@ -44,8 +45,10 @@ class OperationToken : public Token
 };
 
 template<typename type>
-class ConstantToken : public Token
-}
-    type constant;
+class ConstToken : public Token
+{
+    type value;
+public:
+    ConstToken() : value(0) {}
+    ConstToken(type in) : value(in) {}
 };
-
