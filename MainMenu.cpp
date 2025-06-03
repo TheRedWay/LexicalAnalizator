@@ -14,13 +14,14 @@ void MainMenu::start()
 		funcs command = getCommand();
 		switch (command)
 		{
-		case MainMenu::fileName:
+		case MainMenu::funcs::fileName:
 			break;
-		case MainMenu::start:
+		case MainMenu::funcs::start:
 			break;
-		case MainMenu::info:
+		case MainMenu::funcs::info:
 			break;
-		case MainMenu::exit:
+		case MainMenu::funcs::exit:
+			std::exit(0);
 			break;
 		default:
 			break;
