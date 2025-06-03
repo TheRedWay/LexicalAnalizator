@@ -37,6 +37,10 @@ class IdentifierToken : public Token
     indType type;
     double value;
     static SymbolTable symbolTable;
+
+public:
+    std::string getType() const override;
+    std::string getValue() const override;
 };
 
 class OperationToken : public Token

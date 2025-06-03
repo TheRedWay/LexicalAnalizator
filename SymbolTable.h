@@ -7,5 +7,6 @@ class SymbolTable
 	std::unordered_set<IdentifierToken> symbols;
 public:
 	bool check_name();
+	IdentifierToken operator[](IdentifierToken in);
 };
 
