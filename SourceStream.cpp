@@ -20,19 +20,23 @@ bool SourceStream::loadFile(std::string filename)
 	return true;
 }
 
-void SourceStream::readWord()
+bool SourceStream::readWord()
 {
-	buffer.clear();
+
 	char c;
+	
+	while (input.peek() != EOF) {
+		buffer.clear();
+		skipSpace();
+		c = input.get();
 
-	while (std::isspace(input.peek())) { input.ignore(1); }
+		std::string pos = std::to_string((int)input.tellg());
 
-	c = input.get();
-	std::string pos = std::to_string((int)input.tellg());
-	if (c != EOF) {
 		char next;
 		switch (c)
 		{
+
+
 		case '/':
 			next = input.peek();
 			if (skipComment(next)) {
@@ -41,24 +45,78 @@ void SourceStream::readWord()
 			else
 				errors.push_back("Ошибка в символе " + pos + ". Неопознаный \'/\'.");
 			break;
+
+
+
 		case '\"':
 			buffer.push_back(c);
 			while (input.peek() != EOF) {
 				c = input.get();
 				buffer.push_back(c);
 				if (c == '\"')
-					return;
+					return 1;
 			}
 			errors.push_back("Ошибка: отсутсвует парная ковычка символа" + pos);
+			return ((input.peek() == EOF) ? 0 : 1);
+
+
+
+
 		default:
-			buffer.push_back(c);
-			for(c = input.peek(); c != EOF and !isspace(c); c = input.peek())
-			{
-				buffer.push_back(input.get());
+			
+			if (std::isalpha(c)) {
+				buffer.push_back(c);
+				for (c = input.peek(); c != EOF and (std::isalpha(c)); c = input.peek())
+				{
+					buffer.push_back(input.get());
+				}
+				skipSpace();
+				if (input.peek() == '(')
+				{
+					buffer.push_back(input.get());
+					buffer.push_back(')');
+
+					while (input.peek() != ')') { input.ignore(1); }
+					input.ignore(1);
+				}
+				return ((c == EOF) ? 0 : 1);
 			}
-			return;
+
+
+
+			else if (std::isdigit(c)) {
+				buffer.push_back(c);
+				bool oneDot = 1;
+				for (c = input.peek(); c != EOF and (std::isdigit(c) or (c == '.' and oneDot)); c = input.peek())
+				{
+					if (c == '.') oneDot = 0;
+					buffer.push_back(input.get());
+				}
+				return ((c == EOF) ? 0 : 1);
+			}
+
+
+
+			else if (utils::is_operator(c)) {
+
+				buffer.push_back(c);
+				for (c = input.peek(); c != EOF and (utils::is_operator(c)); c = input.peek())
+				{
+					buffer.push_back(input.get());
+				}
+				return ((c == EOF) ? 0 : 1);
+			}
+
+
+
+			else {
+				buffer = c;
+				return 1;
+			}
+			
 		}
 	}
+	return 0;
 }
 
 
@@ -67,7 +125,7 @@ bool SourceStream::skipComment(char& mode)
 	switch (mode)
 	{
 	case '/':
-		input.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		input.ignore(INT64_MAX, '\n');
 		return true;
 	case '*':
 		char c;
@@ -91,6 +149,12 @@ bool SourceStream::skipComment(char& mode)
 }
 
 
+
+inline void SourceStream::skipSpace()
+{
+	char c = input.peek();
+	while (c != EOF and std::isspace(c)) { input.ignore(1); }
+}
 
 inline bool SourceStream::is_forSkip(char& ch)
 {

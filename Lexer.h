@@ -1,18 +1,24 @@
 #pragma once
-#include <string>
-#include "Token.h"
+#ifndef LEXER
+#define LEXER
+
+
 #include "SourceStream.h"
 class Lexer : protected SourceStream
 {
 	
 	SymbolTable symbolTable;
+
 	std::unique_ptr<Token> createToken();
+	KeywordToken* lastTypeToken;
+
 protected:
 	
 	std::vector<std::unique_ptr<Token>> tokensTable;
-	bool lexFile(std::string inputFile);
+	bool lexFile();
 public:
 
 	
 };
 
+#endif // !LEXER

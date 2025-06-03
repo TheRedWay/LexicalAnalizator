@@ -1,7 +1,8 @@
-﻿#include "Lexer.h"
+﻿#include "MainMenu.h"
 
 int main()
 {
-    
+    MainMenu menu;
+    menu.open();
 }
 

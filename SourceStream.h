@@ -1,20 +1,28 @@
 #pragma once
+#ifndef SOURCESTREAM
+#define SOURCESTREAM
+
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
+#include <Windows.h>
 #include "Token.h"
+#include "utils.h"
 class SourceStream
 {
 	std::ifstream input;
 	std::vector<std::string> errors;
 
-
+	inline void skipSpace();
 
 protected:
 	std::string buffer;
 	inline bool is_forSkip(char&);
-	void readWord();
+	bool readWord();
 	bool skipComment(char& mode);
 	bool loadFile(std::string filename);
 };
 
+
+#endif // !SourceStream

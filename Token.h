@@ -1,6 +1,12 @@
 #pragma once
+#ifndef TOKEN
+#define TOKEN
+
+
 #include <string>
+#include <stdexcept>
 #include "SymbolTable.h"
+#include "utils.h"
 class Token
 {
 public:
@@ -9,36 +15,48 @@ public:
     virtual ~Token() = default;
 };
 
-enum separetor_type : char {
-    TZ = ';', DT = ':',
-    LS = '(', RS = ')',
-    LFS = '{', RFS = '}',
-    LKS = '[', RKS = ']',
-    LTS = '<', RTS = '>',
-    DK = '\"', K = '\''
-};
 
 
 class KeywordToken : public Token
 {
     std::string value;
+public:
+    KeywordToken();
+    KeywordToken(std::string in);
+
+    std::string getType() const override;
+    std::string getValue() const override;
 };
 
 class SeparetorToken : public Token
 {
-    separetor_type separetor;
+    char separetor;
+public:
+    SeparetorToken();
+    SeparetorToken(std::string in);
+    SeparetorToken(char in);
+
+    std::string getType() const override;
+    std::string getValue() const override;
 };
 
 class SymbolTable;
 enum indType : char {_bool, _char, _wchar, _short, _int, _float, _double, _long};
 class IdentifierToken : public Token
 {
-    std::string name;
     indType type;
-    double value;
+    std::string name;
+    std::string value;
     static SymbolTable symbolTable;
 
+    indType getType(std::string);
+
 public:
+    IdentifierToken();
+    IdentifierToken(indType inType, const std::string& inName, const std::string& inValue);
+    IdentifierToken(indType inType, const std::string& inName);
+
+
     std::string getType() const override;
     std::string getValue() const override;
 };
@@ -46,6 +64,12 @@ public:
 class OperationToken : public Token
 {
     std::string value;
+public:
+    OperationToken();
+    OperationToken(std::string in);
+
+    std::string getType() const override;
+    std::string getValue() const override;
 };
 
 template<typename type>
@@ -53,6 +77,14 @@ class ConstToken : public Token
 {
     type value;
 public:
-    ConstToken() : value(0) {}
-    ConstToken(type in) : value(in) {}
+    ConstToken();
+    ConstToken(type in);
+    std::string getType() const override;
+    std::string getValue() const override;
+
+
+
 };
+#endif // !TOKEN
+
+

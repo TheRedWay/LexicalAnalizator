@@ -1,39 +1,29 @@
 #pragma once
+#ifndef UTILS
+#define UTILS
+
+#include <unordered_set>
+#include <string>
 namespace utils
 {
-	bool is_number(char ch) {
-		return (ch - '0') >= 0 and (ch - '0') <= 9;
-	}
-	int cti(char ch) {
-		return ch - '0';
-	}
-	char itc(int in) {
-		return (in + '0'); 
-	}
-	int gecsToInt(char ch) {
-		switch (ch)
-		{
-		case 'A':
-		case 'a':
-			return 10;
-		case 'B':
-		case 'b':
-			return 11;
-		case 'C':
-		case 'c':
-			return 12;
-		case 'D':
-		case 'd':
-			return 13;
-		case 'E':
-		case 'e':
-			return 14;
-		case 'F':
-		case 'f':
-			return 15;
-		default:
-			return 0;
-		}
-	}
+	bool is_number(char ch);
+	bool is_keyword(const std::string& str);
+	bool is_separetor(char ch);
+	bool is_operator(const std::string& str);
+	bool is_operator(const char);
+
+	int cti(char ch);
+	char itc(int in);
+	int gecsToInt(char ch);
+	bool validateFile(std::string& filecpp);
+
+	
+
+	std::string toString(const std::string& s);
+	std::string toString(int x);
+	std::string toString(double d);
 };
+
+#endif // !UTILS
+
 

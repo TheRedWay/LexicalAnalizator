@@ -1,10 +1,16 @@
 #pragma once
+#ifndef MAINMENU
+#define MAINMENU
+
+
 #include "Lexer.h"
-#include <Windows.h>
+
 class MainMenu :
     public Lexer
 {
-    std::string fileName;
+
+    bool file_is_loaded;
+    std::string inputFileName;
     enum funcs{fileName,start,info,exit};
 
     void showList();
@@ -12,6 +18,8 @@ class MainMenu :
 
     funcs getCommand();
 public: 
-    void start();
+    void open();
+    MainMenu(): file_is_loaded(0){}
 };
 
+#endif // !MainMenu
