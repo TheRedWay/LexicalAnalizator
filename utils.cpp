@@ -86,6 +86,18 @@ bool utils::is_operator(char c) {
 	return opChars.find(c) != std::string::npos;
 }
 
+bool utils::isTypeKeyword(const std::string& s)
+{
+	return (s == "bool" ||
+		s == "char" ||
+		s == "wchar" ||
+		s == "short" ||
+		s == "int" ||
+		s == "float" ||
+		s == "double" ||
+		s == "long");
+}
+
 int utils::cti(char ch)
 {
 	return ch - '0';

@@ -12,11 +12,12 @@
 class SourceStream
 {
 	std::ifstream input;
-	std::vector<std::string> errors;
+	
 
 	inline void skipSpace();
 
 protected:
+	std::vector<std::string> errors;
 	std::string buffer;
 	inline bool is_forSkip(char&);
 	bool readWord();

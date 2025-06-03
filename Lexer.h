@@ -10,7 +10,7 @@ class Lexer : protected SourceStream
 	SymbolTable symbolTable;
 
 	std::unique_ptr<Token> createToken();
-	KeywordToken* lastTypeToken;
+	Token* lastTypeToken;
 
 protected:
 	

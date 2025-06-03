@@ -40,22 +40,21 @@ public:
     std::string getValue() const override;
 };
 
-class SymbolTable;
 enum indType : char {_bool, _char, _wchar, _short, _int, _float, _double, _long};
 class IdentifierToken : public Token
 {
     indType type;
     std::string name;
-    std::string value;
-    static SymbolTable symbolTable;
 
-    indType getType(std::string);
+
+   
 
 public:
+    static indType getType(std::string);
     IdentifierToken();
-    IdentifierToken(indType inType, const std::string& inName, const std::string& inValue);
     IdentifierToken(indType inType, const std::string& inName);
-
+    IdentifierToken(const IdentifierToken&) = default;
+    IdentifierToken& operator=(const IdentifierToken&) = default;
 
     std::string getType() const override;
     std::string getValue() const override;

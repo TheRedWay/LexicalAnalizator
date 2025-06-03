@@ -11,6 +11,7 @@ namespace utils
 	bool is_separetor(char ch);
 	bool is_operator(const std::string& str);
 	bool is_operator(const char);
+	bool isTypeKeyword(const std::string& s);
 
 	int cti(char ch);
 	char itc(int in);

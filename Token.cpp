@@ -43,16 +43,17 @@ indType IdentifierToken::getType(std::string s)
 }
 
 IdentifierToken::IdentifierToken()
-	: value("undefined") {
+{
 }
 
-IdentifierToken::IdentifierToken(indType inType, const std::string& inName, const std::string& inValue)
-	: type(inType), name(inName), value(inValue) {
-}
+
 
 IdentifierToken::IdentifierToken(indType inType, const std::string& inName)
-	: type(inType), name(inName), value("undefined") {
+	: type(inType), name(inName){
 }
+
+
+
 
 std::string IdentifierToken::getType() const
 {
@@ -61,7 +62,7 @@ std::string IdentifierToken::getType() const
 
 std::string IdentifierToken::getValue() const
 {
-	return value;
+	return name;
 }
 
 OperationToken::OperationToken()
