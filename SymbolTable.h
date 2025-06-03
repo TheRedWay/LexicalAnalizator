@@ -15,6 +15,8 @@ public:
 	IdentifierToken getToken(const std::string&);
 	void add(std::string name, IdentifierToken in);
 	void add(IdentifierToken in);
+
+	void printAll(std::ostream& out) const;
 };
 
 #endif // !SYMBOLTABLE

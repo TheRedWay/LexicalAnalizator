@@ -51,6 +51,8 @@ class IdentifierToken : public Token
 
 public:
     static indType getType(std::string);
+    indType getTokType() const;
+    static std::string typeToString(indType intype);
     IdentifierToken();
     IdentifierToken(indType inType, const std::string& inName);
     IdentifierToken(const IdentifierToken&) = default;

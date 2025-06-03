@@ -11,17 +11,18 @@
 #include "utils.h"
 class SourceStream
 {
-	std::ifstream input;
 	
-
+	bool skipComment(char& mode);
+	inline bool is_forSkip(char&);
 	inline void skipSpace();
 
 protected:
+	std::ifstream input;
 	std::vector<std::string> errors;
 	std::string buffer;
-	inline bool is_forSkip(char&);
+	
 	bool readWord();
-	bool skipComment(char& mode);
+	
 	bool loadFile(std::string filename);
 };
 

@@ -7,13 +7,13 @@
 class Lexer : protected SourceStream
 {
 	
-	SymbolTable symbolTable;
+	
 
 	std::unique_ptr<Token> createToken();
 	Token* lastTypeToken;
 
 protected:
-	
+	SymbolTable symbolTable;
 	std::vector<std::unique_ptr<Token>> tokensTable;
 	bool lexFile();
 public:

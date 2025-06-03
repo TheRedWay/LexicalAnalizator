@@ -19,6 +19,9 @@ class MainMenu :
     funcs getCommand();
 public: 
     void open();
+    void showTokensTable();
+    void showSymbolTable();
+    void showErrors();
     MainMenu(): file_is_loaded(0){}
 };
 

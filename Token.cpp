@@ -42,6 +42,30 @@ indType IdentifierToken::getType(std::string s)
 		throw std::invalid_argument("Неизвестный тип: " + s);
 }
 
+indType IdentifierToken::getTokType() const
+{
+	return type;
+}
+
+
+
+std::string IdentifierToken::typeToString(indType type)
+{
+	switch (type)
+	{
+	case indType::_bool:    return "bool";
+	case indType::_char:    return "char";
+	case indType::_wchar:   return "wchar";
+	case indType::_short:   return "short";
+	case indType::_int:     return "int";
+	case indType::_float:   return "float";
+	case indType::_double:  return "double";
+	case indType::_long:    return "long";
+	default:
+		throw std::invalid_argument("Неизвестное значение indType");
+	}
+}
+
 IdentifierToken::IdentifierToken()
 {
 }
@@ -102,7 +126,9 @@ std::string SeparetorToken::getType() const
 
 std::string SeparetorToken::getValue() const
 {
-	return std::string();
+	std::string value = {};
+	value.push_back(separetor);
+	return value;
 }
 
 KeywordToken::KeywordToken()
@@ -120,5 +146,5 @@ std::string KeywordToken::getType() const
 
 std::string KeywordToken::getValue() const
 {
-	return std::string();
+	return value;
 }

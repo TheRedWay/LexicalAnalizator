@@ -70,14 +70,16 @@ bool SourceStream::readWord()
 				{
 					buffer.push_back(input.get());
 				}
-				skipSpace();
-				if (input.peek() == '(')
-				{
-					buffer.push_back(input.get());
-					buffer.push_back(')');
+				if (!utils::is_keyword(buffer)) {
+					skipSpace();
+					if (input.peek() == '(')
+					{
+						buffer.push_back(input.get());
+						buffer.push_back(')');
 
-					while (input.peek() != ')') { input.ignore(1); }
-					input.ignore(1);
+						while (input.peek() != ')') { input.get(); }
+						input.get();
+					}
 				}
 				return ((c == EOF) ? 0 : 1);
 			}
@@ -132,9 +134,9 @@ bool SourceStream::skipComment(char& mode)
 		while (input.peek()!= EOF)
 		{
 			if (input.peek() != '*')
-				input.ignore(1);
+				input.get();
 			else {
-				input.ignore(1);
+				input.get();
 				if (input.get() == '/') {
 					return true;
 				}
@@ -153,7 +155,8 @@ bool SourceStream::skipComment(char& mode)
 inline void SourceStream::skipSpace()
 {
 	char c = input.peek();
-	while (c != EOF and std::isspace(c)) { input.ignore(1); }
+	while (c != EOF and std::isspace(c)) { input.get(); c = input.peek();
+	}
 }
 
 inline bool SourceStream::is_forSkip(char& ch)
